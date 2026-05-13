@@ -130,34 +130,36 @@ export default function Header({userData}){
   if (anonymous || (userData))
   return (
     <>
-    <nav className="navbar">
-      <Link href="https://writetext.ai/" target='_blank'>
-          <Image src="/images/logo_writetext.svg" className="d-inline-block align-top"  width="200" height="34" alt="logo_writetext" priority/>
-      </Link>
-      <div className='d-flex'>
+    <nav className="navbar navbar-redesigned">
+      <div className="navbar-brand-wrapper">
+        <Link href="https://writetext.ai/" target='_blank'>
+            <Image src="/images/logo_writetext.svg" className="navbar-logo"  width="200" height="34" alt="logo_writetext" priority/>
+        </Link>
+      </div>
+      <div className='navbar-content'>
         
       {!anonymous && isClient && userData != undefined ?
       <>
-        <div className='user font-13'>
-          <p className='d-flex'><Image src="/images/ic_profile.svg" width="16" height="18" alt="User"></Image>Welcome, {userData.account.firstName}</p>
-        </div>
-        <div>
+        <div className='navbar-user-section'>
+          <div className='navbar-user-info'>
+            <Image src="/images/ic_profile.svg" width="18" height="18" alt="User" className="navbar-user-icon"/>
+            <span className='navbar-welcome-text'>Welcome, {userData.account.firstName}</span>
+          </div>
           {userData.account.role.name !== "Administrator" && 
-          <div className='font-13 credit-count'>
-             <p>{formatNumber(userData.credit.totalFreeCredits + userData.credit.totalCredits)} {(userData.credit.totalFreeCredits + userData.credit.totalCredits) > 1 ? "credits" : "credit"}</p>
-            
+          <div className='navbar-credits-badge'>
+             <span className='navbar-credits-value'>{formatNumber(userData.credit.totalFreeCredits + userData.credit.totalCredits)}</span>
+             <span className='navbar-credits-label'>{(userData.credit.totalFreeCredits + userData.credit.totalCredits) > 1 ? "credits" : "credit"}</span>
           </div>}
         </div>
-        <div className='support'>
-          <a className='link' href='https://writetext.ai/create-a-ticket' target='_blank'>Support</a>
-        </div>
-        <div className='logout' >
-          <a className='link' onClick={showModal}>Log out</a>
+        <div className='navbar-actions'>
+          <a className='navbar-link navbar-support-link' href='https://writetext.ai/create-a-ticket' target='_blank'>Support</a>
+          <div className='navbar-divider'></div>
+          <a className='navbar-link navbar-logout-link' onClick={showModal}>Log out</a>
         </div>
       <ModalDialog target="logout" type="logout" click={Signout}/></>
       : 
-      <div >
-        {hasLoggedUser != null && <input type='button' className='btn btn-primary' onClick={handleNavigation} value={hasLoggedUser ? 'Go to home' : 'Sign in'} style={{width: '126px'}}/>}
+      <div className='navbar-auth-section'>
+        {hasLoggedUser != null && <input type='button' className='btn btn-primary navbar-signin-btn' onClick={handleNavigation} value={hasLoggedUser ? 'Go to home' : 'Sign in'} style={{width: '126px'}}/>
         
       </div>
       }
