@@ -1,0 +1,44 @@
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  background-color: #eef7ff;
+  border-radius: 3px;
+  padding: 14px;
+  width: 100%;
+  gap: 10px;
+}
+
+.iconWrapper {
+  flex-shrink: 0;
+  display: flex;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.textContent {
+  flex: 1;
+  font-family: Inter, sans-serif;
+  color: #1a1a1a;
+  letter-spacing: 0;
+  line-height: 18px;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+.message {
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+

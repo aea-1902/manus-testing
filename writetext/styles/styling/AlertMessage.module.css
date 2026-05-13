@@ -1,0 +1,51 @@
+.alertContainer {
+  display: flex;
+  align-items: flex-start;
+  background-color: #FF99000D;
+  border-radius: 3px;
+  padding: 14px;
+  gap: 10px;
+  width: 100%;
+  min-height: 72px;
+  margin-bottom: 10px;
+}
+
+.iconWrapper {
+  display: flex;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.contentWrapper {
+  flex: 1;
+  font-family: 'DM Sans';
+  color: #1a1a1a;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.message {
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.description {
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+

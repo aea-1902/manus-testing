@@ -1,0 +1,24 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="shopify 1" clip-path="url(#clip0_1951_1761)">
+<g id="Clip path group">
+<mask id="mask0_1951_1761" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="50" height="50">
+<g id="clip0_15_7">
+<path id="Vector" d="M50 0H0V50H50V0Z" fill="white"/>
+</g>
+</mask>
+<g mask="url(#mask0_1951_1761)">
+<g id="Group">
+<path id="Vector_2" d="M0 37.5C0 30.5964 5.59644 25 12.5 25C19.4036 25 25 30.5964 25 37.5C25 44.4036 19.4036 50 12.5 50H0V37.5Z" fill="#999999"/>
+<path id="Vector_3" d="M25 37.5C25 30.5964 30.5964 25 37.5 25C44.4036 25 50 30.5964 50 37.5V50H37.5C30.5964 50 25 44.4036 25 37.5Z" fill="#999999"/>
+<path id="Vector_4" d="M0 0H25C25 13.8071 13.8071 25 0 25V0Z" fill="#999999"/>
+<path id="Vector_5" d="M25 0H37.5C44.4036 0 50 5.59644 50 12.5C50 19.4036 44.4036 25 37.5 25C30.5964 25 25 19.4036 25 12.5V0Z" fill="#999999"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_1951_1761">
+<rect width="50" height="50" fill="white"/>
+</clipPath>
+</defs>
+</svg>

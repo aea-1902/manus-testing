@@ -1,0 +1,48 @@
+.alertContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 14px;
+    background-color: rgba(255, 153, 0, 0.05);
+    border-radius: 3px;
+    width: fit-content;
+    margin-bottom: 20px;
+}
+  
+  .alertIcon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  
+  .alertMessage {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0;
+    
+}
+  
+.alertErrorContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 14px;
+    background-color: rgba(204, 0, 0, 0.05); 
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.alertWarningContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 14px;
+  background-color: rgba(255, 153, 0, 0.05); 
+  border-radius: 3px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+

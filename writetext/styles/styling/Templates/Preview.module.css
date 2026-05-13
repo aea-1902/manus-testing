@@ -1,0 +1,208 @@
+.productDescription {
+    width: 100%;
+    min-width: 456px;
+    max-width: 784px;
+    padding: 20px;
+    font-family: "DM Sans", sans-serif;
+    background-color: #f6f6f6;
+    border-radius: 3px;
+    /* height: 100%; */
+    display: flex;
+    flex-direction: column;
+/* min-height: 400px; */
+}
+  
+.header {
+    justify-content: space-between;
+    gap: 14px;
+    flex-shrink: 0;
+}
+  
+.headerLeft {
+    
+font-weight: 400;
+font-size: 13px;
+line-height: 20px;
+
+    flex: 1;
+}
+  
+.title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 19px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    margin: 0;
+    height: 19px;
+}
+  
+.subtitle {
+    font-size: 13px;
+    line-height: 19px;
+    color: #4a4a4a;
+    margin-bottom: 14px;
+}
+  
+.credits {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 19px;
+    color: #1a1a1a;
+    margin-top: 0px;
+    
+    text-align: right;
+
+}
+  
+.contentCard {
+    background: #ffffff;
+    border-radius: 3px;
+    padding: 14px;
+    flex: 1; 
+    overflow-wrap: anywhere;
+    min-height: 240px;
+    scrollbar-width: thin;
+    scrollbar-color: #dddddd #ffffff;
+    display: flex;
+    width: 100%;
+    line-height: normal;
+}
+
+.contentCard p{
+    line-height: normal;
+}
+  
+.contentCard::-webkit-scrollbar {
+    width: 8px;
+}
+  
+.contentCard::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+  
+.contentCard::-webkit-scrollbar-thumb {
+    background-color: #dddddd;
+    border-radius: 3px;
+}
+  
+.tagline {
+    font-size: 13px;
+    font-style: italic;
+    letter-spacing: 0;
+    line-height: 20px;
+    color: #1a1a1a;
+    opacity: 0.5;
+    margin: 0 0 14px 0;
+}
+  
+.overview {
+    font-size: 13px;
+    letter-spacing: 0;
+    line-height: 20px;
+    color: #1a1a1a;
+    margin: 0 0 14px 0;
+}
+  
+.sectionTitle {
+    font-family: 'DM Sans';
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 20px;
+    color: #1a1a1a;
+    opacity: 0.5;
+    margin: 0 0 10px 0;
+}
+  
+.featuresList, .specificationsList {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 14px 0;
+    font-size: 13px;
+    letter-spacing: 0;
+    line-height: 20px;
+    color: #1a1a1a;
+    opacity: 0.5;
+}
+  
+.benefitsHeader {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: 10px;
+    opacity: 0.5;
+}
+  
+.benefitsTitle {
+    font-family: 'DM Sans';
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0;
+    background: linear-gradient(93.67deg, rgba(0,55,109,1) 0%, rgba(0,102,204,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+  
+.shineIcon {
+    width: 14px;
+    height: 14px;
+}
+  
+.benefitsText {
+    font-size: 13px;
+    letter-spacing: 0;
+    line-height: 20px;
+    color: #1a1a1a;
+    opacity: 0.5;
+    margin: 0 0 14px 0;
+}
+.bold {
+    font-weight: bold;
+}
+.italicized {
+    font-style: italic;
+}
+.underlined {
+    text-decoration: underline;
+}
+
+
+.floating {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-41%);
+    right: 20px;
+    height: 82%;
+    width: 40%;
+}
+
+.noContent {
+    color: #1a1a1a;
+    opacity: 0.5;
+    margin: auto;
+    max-width: 336px;
+    
+    font-style: italic;
+    
+    font-weight: 400;
+    font-style: italic;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: 0;
+    text-align: center;
+    
+}
+@media screen and (max-width: 1400px) {
+    .contentCard img{
+        zoom: 80%;
+    }
+}
+@media screen and (min-width: 1025px) and (max-width: 1366px) {
+    
+  .productDescription{
+    min-width: 300px;
+  }
+}

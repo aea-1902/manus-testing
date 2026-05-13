@@ -1,0 +1,803 @@
+.pageTransition {
+    position: absolute;
+    width: 100%;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  }
+  
+  .pageEnter {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  
+  .pageEnterActive {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .pageExit {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  
+  .containerWrapper {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  
+.keywordContainerRow{
+    display: flex;
+    padding: 30px;
+    background-color: #f6f6f6;
+    border-radius: 3px;
+    margin-bottom: 14px;
+    max-width: 1100px;
+    min-width: 850px;
+    width: 100%;
+    color: #1A1A1A;
+}
+.keywordContainerRowItemContentButtonContainer{
+    max-width: 221px;
+    width: 100%;
+}
+.keywordContainerRowItemContentButton{
+    width: 100%;
+    height: 45px;
+    background: #0066CC;
+    border-radius: 3px !important;
+    font-size: 13px;
+}
+.keywordContainerRowItemIcon{
+    width: 22px;
+    height: 22px;
+}
+.keywordContainerRowItemContent{
+    width: 100%;
+}
+.keywordContainerRowItemIconKeywords{
+    background: url('../../public/images/icon-park_export.svg') no-repeat;
+    width: 22px;
+    height: 22px;
+}
+.keywordContainerRowItemIconSettings{
+    background: url('../../public/images/icon-carbon_settings.svg') no-repeat;
+}
+.keywordContainerRowItemIconCannibalization{
+    background: url('../../public/images/icon-keyword_cannibalization.svg') no-repeat;
+}
+
+.keywordContainerRowItemContentTitle{
+    font-family: "Plus Jakarta Sans";
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 100%;
+    margin: 0 0 15px;
+}
+.keywordContainerRowItemContentDescription{
+    font-weight: 400;
+    font-size: 13px;
+    margin-right: 40px;
+    line-height: 19px;
+    color: #4A4A4A;
+    margin-bottom: 0;
+}
+
+.keywordContainerRowItemContentDescriptionContainer{
+    max-width: 533px;
+}
+.keywordContainerRowItemContentFilter {
+    /* max-width: 255px; */
+}
+.keywordContainerRowItemContentFilter button:hover{
+    background-color: #fff !important;
+}
+.keywordSubheader{
+    
+    font-weight: 400 !important;
+    font-size: 13px !important;
+    line-height: 19px !important;
+    letter-spacing: 0 !important;
+    margin-bottom: 42px ;
+    height: auto !important;
+    color: #4A4A4A !important;
+    padding-right: 60px;
+}
+.keywordBackBtn{
+  background: url('../../public/images/ic-chevron-left.svg') no-repeat 16px;
+  background-size: 5px;
+  background-color: rgba(244, 244, 244, 1);
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 3px;
+  margin: 0px 14px 0 0;
+  cursor: pointer;
+  height: 40px !important;
+}
+.keywordSettingsTHead,
+.keywordSettingsTBody{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Create a wrapper for the tbody to handle scrolling */
+.keywordSettingsTBodyWrapper {
+    display: block;
+    max-height: 44vh;
+    overflow-y: auto;
+    width: 100%;
+}
+
+/* Ensure consistent widths between header and body */
+.keywordSettingsTHead,
+.keywordSettingsTableTbodyRow {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* When scrollbar appears, adjust header width */
+.keywordSettingsTBodyWrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.keywordSettingsTBodyWrapper.has-scrollbar .keywordSettingsTHead {
+    width: calc(100% - 8px);
+}
+
+/* Ensure consistent cell widths and alignment */
+.keywordSettingsTHead th:nth-child(1),
+.keywordSettingsTableTbodyRow td:nth-child(1) {
+    width: 26%;
+    text-align: left;
+    padding: 3px;
+}
+
+.keywordSettingsTHead th:nth-child(2),
+.keywordSettingsTableTbodyRow td:nth-child(2) {
+    width: 6%;
+    text-align: center;
+    padding: 3px;
+}
+
+.keywordSettingsTHead th:nth-child(3),
+.keywordSettingsTableTbodyRow td:nth-child(3) {
+    width: 12%;
+    text-align: center;
+    padding: 3px;
+}
+
+.keywordSettingsTHead th:nth-child(4),
+.keywordSettingsTableTbodyRow td:nth-child(4) {
+    width: 10%;
+    text-align: center;
+    padding: 3px;
+}
+
+.keywordSettingsTHead th:nth-child(5),
+.keywordSettingsTableTbodyRow td:nth-child(5) {
+    width: 10%;
+    text-align: center;
+    padding: 3px;
+}
+
+.keywordSettingsTHead th:nth-child(6),
+.keywordSettingsTableTbodyRow td:nth-child(6) {
+    width: 10%;
+    text-align: center;
+    padding: 3px;
+}
+
+.keywordSettingsTHead th:nth-child(7),
+.keywordSettingsTableTbodyRow td:nth-child(7) {
+    width: 10%;
+    text-align: center;
+    padding: 3px;
+}
+
+.keywordSettingsTHead th:nth-child(8),
+.keywordSettingsTableTbodyRow td:nth-child(8) {
+    width: 10%;
+    text-align: center;
+    padding: 3px;
+}
+
+.keywordSettingsTHead th:nth-child(9),
+.keywordSettingsTableTbodyRow td:nth-child(9) {
+    width: 6%;
+    padding: 3px;
+}
+
+.keywordSettingsRowTrash{
+    display: block;
+    background: url('../../public/images/ic_trash.svg') no-repeat center center;
+    width: 16px;
+    height: 16px;
+    margin: 12px 12px 12px 24px;
+    cursor: pointer;
+}
+.keywordSettingsRowTrash.disabled{
+    cursor: default;
+}
+.keywordSettingsTableRow th{
+        height: 52px;
+        border-bottom: none !important;
+}
+.keywordSettingsTableTbodyRow a{
+    text-decoration: none;
+}
+.keywordSettingsTableTbodyRow a:hover{
+    text-decoration: underline;
+}
+.keywordSettingsTableTbodyRow td:nth-child(1) {
+    width: 26%;
+    text-align: left;
+}
+
+.keywordSettingsTableTbodyRow td:nth-child(2) {
+    width: 6%;
+    text-align: center;
+}
+.keywordSettingsTableTbodyRow td input[type="number"] {
+    width: 75px;
+    text-align: center;
+}
+.keywordSettingsTableTbodyRow td:nth-child(3) {
+    width: 12%;
+    text-align: center;
+}
+
+.keywordSettingsTableTbodyRow td:nth-child(4) {
+    width: 10%;
+    text-align: center;
+}
+
+.keywordSettingsTableTbodyRow td:nth-child(5) {
+    width: 10%;
+    text-align: center;
+}
+
+.keywordSettingsTableTbodyRow td:nth-child(6) {
+    width: 10%;
+    text-align: center;
+}
+
+.keywordSettingsTableTbodyRow td:nth-child(7) {
+    width: 10%;
+    text-align: center;
+}
+
+.keywordSettingsTableTbodyRow td:nth-child(8) {
+    width: 10%;
+    text-align: center;
+}
+
+.keywordSettingsTableTbodyRow td:nth-child(9) {
+    width: 6%;
+}
+
+.keywordSettingsTableTbodyRow .spinnerContainer {
+    position: relative;
+}
+
+.keywordSettingsTableTbodyRow .spinnerContainer .spinnerContainerButtons {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 21px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f6f6f6;
+    border-right: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.keywordSettingsTableTbodyRow .dropdown {
+    height: 40px !important;
+    width: 103px !important;
+    margin: 0 auto !important;
+    min-height: unset !important;
+    padding: 0 15px;
+}
+
+.keywordCannibalizationReportTable{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* overflow-y: auto;
+    max-height: 70vh; */
+}
+.keywordCannibalizationReportTable::-webkit-scrollbar {
+    width: 8px;
+    overflow: hidden;
+}
+
+.keywordCannibalizationReportTable::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.keywordCannibalizationReportTable::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: #bbb;
+    transition: background-color 0.3s ease; 
+}
+
+.keywordCannibalizationReportTable::-webkit-scrollbar-thumb:hover {
+    overflow: auto; 
+}
+
+
+.keywordCannibalizationReportTableRow{
+    background-color: #f6f6f6;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 3px;
+    border-width: 1px;
+    padding: 14px;
+    max-width: 1100px;
+    margin-bottom: 14px;
+    color: #1A1A1A;
+}
+.keywordCannibalizationReportTableRowLinkIndex{
+    min-width: 18px;
+height: 18px;
+gap: 10px;
+border-radius: 999px;
+color: #fff;
+background-color: #0066CC;
+font-size: 11px !important;
+letter-spacing: 0 !important;
+text-align: center;  
+margin-top: 12px;
+line-height: 19px;
+font-weight: 700 !important;
+
+}
+.keywordCannibalizationReportTableRowLink a{
+    text-decoration: none;
+}
+.keywordCannibalizationReportTableRowLink{
+    color: #0066CC;
+    cursor: pointer;
+}
+.keywordCannibalizationReportTableRowLink:hover{
+    text-decoration: underline;
+    color: #004492;
+}
+.keywordCannibalizationReportTableRowMainHead{
+    color: #1a1a1a;
+    margin-top: 10px;
+}
+.collapsibleKeywordListContainer .keywordCannibalizationReportUrlGroup:last-child{
+    border-bottom: none;
+}
+/* button.keyword-cannibalization-report-table-row-main-header-row,
+button.keyword-cannibalization-report-table-row-main-header-row:focus {
+    background-color: #DDDDDD !important;
+}
+  */
+  .collapsibleKeywordList:last-child .keywordCannibalizationReportTableRowMainHeaderRow{
+    border-bottom: none;
+}
+
+.keywordCannibalizationReportTableRowMainHeaderRow{
+    font-weight: 600;
+}
+
+.show .keywordCannibalizationReportTableRowMainHeaderRow{
+    font-weight: 600;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.keywordCannibalizationReportTableRowMainHeaderRow.accordionButtonCustom{    
+    background-position: right 12px bottom 45% !important;
+}
+
+.keywordCannibalizationReportTableRowMainHead,
+.keywordCannibalizationReportTableRowMainHeaderRow{
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0;
+    padding: 12px 10px;
+    height: 40px;
+    display: flex;
+    width: 100%;
+    position: relative; 
+}
+.keywordCannibalizationReportTableRowMainHeaderRowCheckbox{
+    
+    width: 20px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #06c;
+    border: 1px solid grey;
+    border-radius: 3px;
+    margin: 0;
+    position: relative;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #fff;
+}
+.keywordCannibalizationReportTableRowMainHeaderRowCheckbox:checked {
+    background-color: #06c;
+    border-color: #06c;
+}
+.keywordCannibalizationReportTableRowMainHeaderRowCheckbox:checked:after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 3px;
+    width: 4px;
+    height: 8px;
+    border: solid #fff;
+    border-width: 0 1px 1px 0;
+    transform: rotate(45deg);
+}
+.keywordCannibalizationReportTableRowMainHead p {
+    width: 100%;
+    margin: 0;
+}
+.keywordCannibalizationReportTableRowMainHead p:nth-child(1),
+.keywordCannibalizationReportTableRowMainHead p:nth-child(2),
+.keywordCannibalizationReportTableRowMainHead p:nth-child(3){
+    max-width: 310px;
+}
+
+.keywordCannibalizationReportTableRowMainHead p:nth-child(4){
+    position: absolute;
+    width: fit-content;
+    right: 120px;
+    top: 10px;
+}
+.keywordCannibalizationReportTableRowMainHead p:nth-child(5){
+    max-width: 38px;
+}
+
+.keywordCannibalizationReportTableRowMainHead p:nth-child(2),
+.keywordCannibalizationReportTableRowMainHead p:nth-child(3){
+    text-align: center;
+}
+.keywordCannibalizationReportTableRowMainHeaderRow p{
+    width: 100%;
+}
+.keywordCannibalizationReportTableRowMainHeaderRow p:nth-child(1),
+.keywordCannibalizationReportTableRowMainHeaderRow p:nth-child(2),
+.keywordCannibalizationReportTableRowMainHeaderRow p:nth-child(3){
+    max-width: 310px;
+}
+.keywordCannibalizationReportTableRowMainHeaderRow p:nth-child(4){
+    max-width: 38px;
+}
+
+.keywordCannibalizationReportTableRowMainHeaderRow p:nth-child(2){
+    text-indent: 175px;
+}
+.keywordCannibalizationReportTableRowMainHeaderRow p:nth-child(3){
+    text-align: center;
+}
+
+.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowHead{
+    display: flex;
+    width: 100%;
+    height: 39px;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: 0;
+    margin: 0 14px;
+}
+.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowHead p{
+    padding: 12px 10px;
+    width: 100%;
+    margin-bottom: 0 !important;
+}
+.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowHead p:nth-child(1){
+    max-width: 14px;
+    background: url('../../public/images/ic_leveldown.svg') no-repeat;
+    background-size: 14px;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+}
+.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowHead p:nth-child(2){
+    max-width: 578px;
+}
+
+.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowHead p:nth-child(3){
+    max-width: 150px;
+    text-align: right;
+}
+.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowHead p:nth-child(4){
+    max-width: 200px;
+}
+
+.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowBody{
+    display: flex;
+    width: 100%;
+    margin: 0 14px;
+}
+.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowBody p{
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 0;
+    width: 100%;
+    margin-bottom: 0 !important;
+}
+ .keywordCannibalizationReportTableRowMainHeaderRowTbodyRowBody p:nth-child(1){
+    
+    max-width: 18px;
+ }
+
+.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowBody p:nth-child(2){
+    max-width: 578px;
+    padding: 12px 10px;
+}
+.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowBody p:nth-child(3){
+    max-width: 150px;
+    text-indent: 120px;
+    padding: 12px 10px;
+}
+.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowBody p:nth-child(4){
+    max-width: 200px;
+}
+ 
+.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowBody p:nth-child(4) button{
+    margin: 0.5px 10px 0.5px 34px;
+    height: 40px;
+    width: 156px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+/* .keyword-cannibalization-report-table-subtable{
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    border-width: 1px;
+} */
+
+.keywordCannibalizationReportTableSubtable thead tr th:first-child {
+    border: 1px solid #DDDDDD;
+    border-radius: 3px 0 0 3px;
+    border-width: 1px;
+}
+
+.keywordCannibalizationReportTableSubtable thead tr th:nth-child(2) {
+    border: 1px solid #DDDDDD;
+    border-radius: 0;
+    border-width: 1px;
+}
+
+.keywordCannibalizationReportTableSubtable thead tr th:last-child {
+    border: 1px solid #DDDDDD;
+    border-radius: 0 3px 3px 0;
+    border-width: 1px;
+}
+
+.keywordOpenLinkButton{
+    margin: 0px 17px 0 0;
+    height: 40px;
+    width: 156px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: normal;
+    letter-spacing: 0;
+    padding: 10px;
+}
+
+
+.accordionButtonCustom,
+.accordionButtonCustom:focus{
+    box-shadow: none;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: #1A1A1A !important;
+    height: 19px;
+    /* background-position: right 10px bottom 45% !important; */
+    padding:0 !important;
+}
+.accordionButtonCustomLink:hover{
+    text-decoration: underline;
+}
+.accordionBody{
+    margin-bottom: 10px;
+    padding: 10px 10px 10px 38px;
+}
+.accordionElements{
+    
+    padding: 10px;
+    background-color: #F6F6F6;
+}
+.accordionElements p{
+    width: auto;
+    white-space: pre;
+    margin: auto 25px auto 0;
+}
+
+.executeButton:disabled {    
+    background: lightgrey;
+    border: lightgrey;
+    color: white;
+    cursor: not-allowed;
+
+}
+
+.keywordCannibalizationReportUrlGroup{
+    margin-bottom: 8px;
+    padding-bottom: 10px;
+}
+
+.emptyState{
+    
+  width: 100%;
+  max-width: 1110px;
+  padding: 30px 20px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.emptyStateContent{
+    
+  width: 100%;
+  max-width: 1030px;
+  padding: 0 40px;
+  text-align: center;
+  margin-top: 30px;
+}
+.emptyStateContent h3{
+    color: #777;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 22px;
+    letter-spacing: 0;
+    margin: 0 0 20px 0;
+}
+.emptyStateContent p{
+    color: #777;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0;
+    margin: 0;
+}
+.disabled{
+    opacity: 0.5;
+}
+.emptyWebshop{
+    background: url('../../public/images/empty-webshop.png') no-repeat;
+    background-size: 220px 164px;
+    height: 164px;
+    width: 220px;
+    margin: 0 auto;
+  }
+.checkboxSelectAll{
+    width: 16px;
+    height: 16px;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: all 0.2s ease;
+}
+
+.checkboxSelectAll:checked {
+    background-color: #DDEEFF;
+    border-color: #0066CC;
+}
+.checkboxSelectAll:checked::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    height: 10px;
+    border: solid #0066CC;
+    border-width: 0 2px 0px 0;
+    transform: rotate(90deg);
+}
+.checkboxSelectAll.all:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #0066CC;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.checkboxSelectAll.partial:checked::after {
+    
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    height: 10px;
+    border: solid #0066CC;
+    border-width: 0 2px 0px 0;
+    transform: rotate(90deg);
+}
+.checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: all 0.2s ease;
+}
+
+.checkbox:checked {
+    background-color: #DDEEFF;
+    border-color: #0066CC;
+}
+
+.checkbox:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #0066CC;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox.partial {
+    background-color: #DDEEFF;
+    border-color: #0066CC;
+}
+
+.checkbox.partial::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 6px;
+    width: 8px;
+    height: 2px;
+    background-color: #0066CC;
+    transform: none;
+}
+
+.keywordSettingsTableThRow th:not(:nth-child(1)) {
+    text-align: center;
+}
+.keywordSettingsTableTbodyRow td{
+    height: 40px;
+    vertical-align: middle; 
+    padding: 3px;
+}
+
+@media screen and (max-width: 1200px) {
+    .keywordSettingsTHead,
+.keywordSettingsTBody{
+    zoom: 90%;
+}
+}

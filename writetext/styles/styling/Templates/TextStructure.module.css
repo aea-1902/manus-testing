@@ -1,0 +1,65 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+.buttonGroup {
+    display: flex;
+    gap: 6px;
+  }
+  
+  .formatButton {
+    width: 32px;
+    height: 32px;
+    border-radius: 3px;
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Times New Roman';
+    font-size: 15px;
+    letter-spacing: 0;
+    color: #1a1a1a;
+    transition: all 0.2s ease;
+  }
+  
+  /* Bold button */
+  .formatButton:nth-child(1) {
+    font-weight: 700;
+  }
+  
+  /* Italic button */
+  .formatButton:nth-child(2) {
+    font-style: italic;
+    background: #ddeeff;
+    border-color: #0066cc;
+    color: #0066cc;
+  }
+  
+  /* Underline button */
+  .formatButton:nth-child(3) {
+    text-decoration: underline;
+  }
+  
+  .formatButton:hover {
+    background: #f5f5f5;
+  }
+  
+  .formatButton.active {
+    background: #ddeeff;
+    border-color: #0066cc;
+    color: #0066cc;
+  }
+  
+  .formatButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+  }
+
+ .paragraph{}
+ .bullet{}
+ .number{}

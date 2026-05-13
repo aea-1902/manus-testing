@@ -1,0 +1,91 @@
+import React, {useEffect, useState,useRef} from 'react'
+import { useRouter } from 'next/router' 
+import axios from 'axios'
+import Image from 'next/image'
+import {
+    PayPalButtons,
+    usePayPalScriptReducer
+} from '@paypal/react-paypal-js'
+
+import { event } from '../gtm'
+import apiService from '../../services/ApiService'
+export default function PaypalCredit({planId, amount, credits}) {
+    
+    const AppSettings = require('../../settings/AppSetting').default
+    const router = useRouter()
+    const https = require("https");
+    const agent = new https.Agent({ rejectUnauthorized: false });
+  
+    const [ongoingPayment, setOngoingPayment] = useState(false)
+    const [{ options, isPending, isResolved, isRejected }, dispatch] = usePayPalScriptReducer();
+    const [showError, setShowError] = useState(false)
+
+  return (
+    <>
+  {isPending && <Image src="https://writetextaistorage.z6.web.core.windows.net/ic_loader_writetext_backend.gif" width={100} height={100} alt="loader"></Image>}
+  {isRejected && <p>There is an issue connecting to PayPal and you may need to refresh the page to try again.
+   If the issue persists, it might be an issue with your browser, and you may need to update it to the latest version or clear your cache and cookies to resolve the problem.</p>}
+  {!isPending &&
+    <>
+    
+    {!showError && !ongoingPayment ? 
+        <PayPalButtons
+            forceReRender={[amount]}
+            createOrder={(data,actions) => {
+                return axios.post(`${AppSettings.API_URL}/PayPal/order?planId=${planId}`, { httpsAgent: agent })
+                .then((order) => {return order.data.order.id})
+            }}
+            onApprove={async (data) => {
+
+                setOngoingPayment(true)
+<<<<<<< HEAD
+                // axios.post(`${AppSettings.API_URL}/PayPal/order/${data.orderID}/complete`, { httpsAgent: agent }).then(r => {
+                //     if (!AppSettings.API_URL.includes("writetextai-api-dev"))
+                //     {
+                //     event(`Credits ${credits}`,{})
+                //     }
+                //     router.reload()
+                // }).catch(err => {
+                //     setOngoingPayment(false)
+                //     setShowError(true)
+                // })
+                await apiService.post(`${AppSettings.API_URL}/PayPal/order/${data.orderID}/complete`).then(r => {
+                    if (r.data.result)
+=======
+                axios.post(`${AppSettings.API_URL}/PayPal/order/${data.orderID}/complete`, { httpsAgent: agent }).then(r => {
+                    if ((!AppSettings.API_URL.includes("writetextai-api-staging") && !AppSettings.API_URL.includes("writetextai-api-dev")))
+>>>>>>> 366-AccountsPagesLinksFixes
+                    {
+                        
+                        if (!AppSettings.API_URL.includes("writetextai-api-dev"))
+                        {
+                            event(`Credits ${credits}`,{})
+                        }
+                        router.reload()
+                    }else
+                    {
+                        setOngoingPayment(false)
+                        setShowError(true)
+                    }
+                })
+            
+            }}
+            onError={(err) => {
+                setOngoingPayment(false)
+                setShowError(true)
+                console.log(err)
+            }}
+
+            style={{"layout":"vertical", "tagline": "false"}}
+        //fundingSource="paypal"
+        /> 
+    :
+    !showError && <Image src="https://writetextaistorage.z6.web.core.windows.net/ic_loader_writetext_backend.gif" width={100} height={100} alt="loader"></Image>}
+    
+    {showError && <p className='paypal-error'>There was an error in processing your card. Please enter the correct details or use a different card.</p>}
+    </>
+    
+  }
+  </>
+  )
+}

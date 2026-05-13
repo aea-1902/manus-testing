@@ -1,0 +1,58 @@
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import ModalDialog from '../components/Modal'
+
+export default function Header({user , onlogout, userCredits}){
+  const showModal = () => {
+    const { Modal } = require("bootstrap")
+    const myModals = new Modal("#logout");
+    myModals.show()
+  }
+  function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+  function SignIn(){
+    const AuthenticationService = require('../services/AuthenticationService').default
+    AuthenticationService.login()
+  }
+  return (
+    <>
+    <nav className="navbar">
+      <Link className="navbar-brand" href="/home">
+          <Image src="/images/logo_writetext.svg" className="d-inline-block align-top"  width="200" height="38" alt="logo_writetext" priority/>
+      </Link>
+      <div className='d-flex'>
+        
+      {user != null ?
+      <>
+        <div className='user font-13'>
+          <p><Image src="/images/ic_profile.svg" width="16" height="18" alt="User"></Image>Welcome, {user}</p>
+        </div>
+        <div>
+          <div className='font-13 credit-count'>
+<<<<<<< HEAD
+            <p>{(userCredits != undefined && userCredits != null && userCredits.freeCredits.length > 0) ? formatNumber(userCredits.freeCredits[0].amount + userCredits.totalCredits) : formatNumber(userCredits.totalCredits)} credits</p>
+=======
+            <p>{(userCredits != undefined && userCredits != null) ? userCredits.totalFreeCredits + userCredits.totalCredits : 0} credits</p>
+>>>>>>> dae53f9113cab36f84afd5cfbd754b66ffb041f4
+            
+          </div>
+        </div>
+        <div className='logout' >
+          <a className='link' onClick={showModal}>Log out</a>
+        </div>
+      <ModalDialog target="logout" type="logout" click={onlogout}/></>
+      : 
+      <div >
+        <a className='link sign-in' onClick={SignIn}>Sign in</a>
+      </div>
+      }
+        
+      </div>
+    </nav>
+  </>
+  )
+}
+
+

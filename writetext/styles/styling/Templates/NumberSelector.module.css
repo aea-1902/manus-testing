@@ -1,0 +1,69 @@
+.numberSelectorWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.numberSelector {
+  width: 70px;
+  height: 32px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.numberSelectorValue {
+  border: none;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #303030;
+  margin: auto;
+  padding-left: 8px;
+}
+
+.numberSelectorContent{
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.numberSelectorControls {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-left: auto;
+}
+
+.numberSelectorButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.numberSelectorButton:hover {
+  opacity: 0.8;
+}
+
+.numberSelectorButton:active {
+  opacity: 0.6;
+}
+
+.numberSelectorButton img {
+  display: block;
+}
+
+.propertyLabel {
+  font-size: 13px;
+  color: #333;
+  min-width: 40px;
+}
+  

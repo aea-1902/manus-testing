@@ -1,0 +1,32 @@
+.tooltipContainer {
+    position: relative;
+    display: flex;
+}
+
+.tooltip {
+    position: fixed;
+    background-color: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 3px;
+    font-size: 12px;
+    z-index: 99999;
+    max-width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+    line-height: 15px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 10px;
+    border-width: 0;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+} 
+

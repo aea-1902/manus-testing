@@ -1,0 +1,91 @@
+import React, {useEffect, useState,useRef} from 'react'
+import { useRouter } from 'next/router' 
+import axios from 'axios'
+import Image from 'next/image'
+import {
+    PayPalButtons,
+    usePayPalScriptReducer
+} from '@paypal/react-paypal-js'
+import apiService from '../../services/ApiService'
+import { event } from '../gtm'
+export default function PaypalInstallationService({ planId, quantity, amount}) {
+    const AppSettings = require('../../settings/AppSetting').default
+    const router = useRouter()
+    const https = require("https");
+    const agent = new https.Agent({ rejectUnauthorized: false });
+
+    const [{ options, isPending, isResolved, isRejected }, dispatch] = usePayPalScriptReducer();
+    const [paypalsubscriptionid, updatePaypalSubscriptionId] = useState(null)
+    const [ongoingPayment, setOngoingPayment] = useState(false)
+    const [showError, setShowError] = useState(false)
+    
+    useEffect(() => {
+        if (paypalsubscriptionid != undefined)
+        {
+            
+        dispatch({
+            type: "resetOptions",
+            value: {
+                ...options,
+                intent: "subscription",
+            },
+        });
+                
+            
+        }
+    }, [paypalsubscriptionid])// eslint-disable-line react-hooks/exhaustive-deps
+    return (
+        
+        <div className="paypal-button-container">
+            {!showError && !isPending && isResolved && !isRejected ? 
+            <>
+            {!ongoingPayment ? 
+            <PayPalButtons
+            forceReRender={[amount]}
+            createOrder={async () => {
+                
+                return await apiService.post(`${AppSettings.API_URL}/PayPal/installorder?planId=${planId}&quantity=${quantity}`)
+                .then((order) => {
+                    return order.data.order.id
+                })
+            }}
+            onApprove={async (data) => {
+                setOngoingPayment(true)
+                  await apiService.post(`${AppSettings.API_URL}/PayPal/order/${data.orderID}/complete`).then(r => {
+                    if ((!AppSettings.API_URL.includes("writetextai-api-staging") && !AppSettings.API_URL.includes("writetextai-api-dev")))
+                    {
+                        event("Installation service",{})
+                    }
+                    setTimeout(() => {
+                        setOngoingPayment(false)
+                        const { Modal } = require("bootstrap")
+                        const myModals = new Modal("#installation");
+                        myModals.show()
+                    }, 800);
+                    
+                    })
+            }}
+            onError={(err) => {
+                setOngoingPayment(false)
+                setShowError(true)
+            }
+            }
+
+            style={{"layout":"vertical", "tagline": "false"}}
+            //fundingSource="paypal"
+            /> : 
+            !showError && <Image src="https://writetextaistorage.z6.web.core.windows.net/ic_loader_writetext_backend.gif" width={100} height={100} alt="loader"></Image>
+            }
+            </>
+
+: null
+}
+        {isRejected && <p>There is an issue connecting to PayPal and you may need to refresh the page to try again.
+If the issue persists, it might be an issue with your browser, and you may need to update it to the latest version or clear your cache and cookies to resolve the problem.</p> }
+         
+           
+    {showError && <p className='paypal-error'>There was an error in processing your card. Please enter the correct details or use a different card.</p>}
+            
+        </div>
+    )
+}

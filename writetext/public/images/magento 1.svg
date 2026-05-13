@@ -1,0 +1,24 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="magento 1" clip-path="url(#clip0_1951_1752)">
+<g id="Clip path group">
+<mask id="mask0_1951_1752" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="50" height="50">
+<g id="clip0_8_8">
+<path id="Vector" d="M50 0H0V50H50V0Z" fill="white"/>
+</g>
+</mask>
+<g mask="url(#mask0_1951_1752)">
+<g id="Group">
+<path id="Vector_2" d="M0 12.5C0 5.59644 5.59644 0 12.5 0H25V12.5C25 19.4036 19.4036 25 12.5 25C5.59644 25 0 19.4036 0 12.5Z" fill="#EF6524"/>
+<path id="Vector_3" d="M0 37.5C0 30.5964 5.59644 25 12.5 25H25V37.5C25 44.4036 19.4036 50 12.5 50C5.59644 50 0 44.4036 0 37.5Z" fill="#EF6524"/>
+<path id="Vector_4" d="M25 50C25 36.1929 36.1929 25 50 25V50H25Z" fill="#EF6524"/>
+<path id="Vector_5" d="M25 12.5C25 5.59644 30.5964 0 37.5 0C44.4036 0 50 5.59644 50 12.5C50 19.4036 44.4036 25 37.5 25H25V12.5Z" fill="#EF6524"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_1951_1752">
+<rect width="50" height="50" fill="white"/>
+</clipPath>
+</defs>
+</svg>

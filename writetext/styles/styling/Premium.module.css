@@ -1,0 +1,686 @@
+.freeTrialBanner{
+  height: auto;
+  margin-bottom: 30px;
+}
+
+.bannerTitle{
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0;
+  margin-bottom: 10px;
+  color: #1a1a1a;
+}
+.bannerText{
+  color: #4a4a4a;
+  font-size: 13px;
+  font-weight: 400;
+  margin: 0;
+  line-height: 19px;
+  max-width: 95%;
+}
+
+.bannerCloseButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+
+.bannerCloseButton img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+}
+
+.legacyBannerContainer {
+  position: relative;
+  margin-bottom: 30px;
+  height: 99px;
+}
+
+.pricingContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+.pricing{
+    font-family: Plus Jakarta Sans;
+    border-radius: 3px;
+    background-color: #F6F6F6;
+    padding: 20px;
+    /* height: 100%; */
+    min-height: 382px;
+    width: 100%;
+    max-width: 357px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pricingTitle{
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    margin-bottom: 6px;
+    height: 25px;
+    color: #1a1a1a;
+
+}
+.pricingSubTitle{
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #4a4a4a;
+}
+.pricingPrice{
+    font-family: DM Sans;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+
+}
+.pricingDropdown{
+    /* width: 151px; */
+    height: 45px;
+    justify-content: space-between;
+    border-radius: 3px;
+    border-width: 1px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.starterPricingContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    width: 100%;
+}
+.starterPricingDropdown{
+    /* width: 151px; */
+    height: 45px;
+    justify-content: space-between;
+    border-radius: 3px;
+    border-width: 1px;
+}
+
+.proPricingContainer{
+  width: 100%;
+}
+
+.proPricing {
+  font-family: Plus Jakarta Sans;
+  border-radius: 3px;
+  background-color: #F6F6F6;
+  padding: 20px;
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.proPricingTitle {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-bottom: 6px;
+  color: #1a1a1a;
+}
+
+.proPricingSubTitle {
+  font-family: DM Sans;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0;
+  margin-bottom: 15px;
+  color: #4a4a4a;
+  /* line-height: 100%; */
+  height: 17px;
+}
+
+.proPricingPrice {
+    font-family: DM Sans;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 2px;
+    height: 21px;
+    color: #1a1a1a;
+}
+
+.proPricingPerksRow {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 5px;
+  font-family: DM Sans;
+  font-weight: 400;
+  font-size: 13px;
+  height: 18px;
+  
+  color: #4a4a4a;
+}
+
+.proPricingPerksRow img {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.proPricingPerksRow span {
+  margin-left: 10px;
+  display: block;
+  line-height: 100%;
+}
+
+.proPricingDisclaimer{
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 11px;
+    color: #888;
+    margin-top: 2px;
+    margin-bottom: 0;
+    height: 14px;
+}
+
+.enterpricePricingContainer{
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.enterpricePricing{
+  font-family: Plus Jakarta Sans;
+  border-radius: 3px;
+  background-color: #F6F6F6;
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+} 
+.enterpricePricingTitle{
+  font-family: DM Sans;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #4a4a4a;
+  margin-bottom: 15px;
+}
+
+.enterpricePricingSubTitle{
+  font-family: DM Sans;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: normal;
+  color: #4a4a4a;
+  margin-bottom: 30px;
+  
+}
+.enterpriseContactText{
+  font-family: DM Sans;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: normal;
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+.enterpriseContactText a{
+  text-decoration: none;
+}
+.creditDropdownContainer {
+    position: relative;
+    width: 100%;
+    height: 45px;
+    font-family: "DM Sans";
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.creditDropdownToggle {
+    width: 100%;
+    height: 45px;
+    padding: 7.5px 7.5px 7.5px 12px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #1a1a1a;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.disabled {
+    background-color: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.6;
+    border-color: #ccc;
+}
+
+
+.creditDropdownValue {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+
+.creditDropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: block;
+    min-width: 151px;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    font-size: 13px;
+    color: #4a4a4a;
+    text-align: left;
+    background-color: #fff;
+    background-clip: padding-box;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.10);
+    border-radius: 3px;
+    border: none;
+    margin-top: 5px;
+}
+
+.creditDropdownItem {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    height: 30px;
+    font-size: 13px;
+}
+
+.creditDropdownItem:hover {
+    color: #1e2125;
+    background-color: #e9ecef;
+}
+
+.creditDropdownItemSelected {
+    background-color: #e9ecef;
+    color: #1e2125;
+}
+.pricingPerks{
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: 0%;
+
+}
+
+.pricingPerksRow {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 6px;
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 0;
+    color: #4a4a4a;
+    /* height: 17px; */
+}
+
+.pricingPerksRow img {
+    flex-shrink: 0;
+    margin-top: 3px;
+}
+
+.pricingPerksRow span {
+    margin-left: 10px;
+    display: block;
+    line-height: normal;
+}
+.pricingButton{
+    width: 160px;
+    height: 46px;
+    border-radius: 3px;
+    padding-top: 14px;
+    padding-right: 24px;
+    padding-bottom: 14px;
+    padding-left: 24px;
+    gap: 10px;
+    background-color: #0066CC;
+    color: #fff;
+
+}
+
+.pricingDisclaimer{
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #4a4a4a;
+}
+.proContainer,
+.starterContainer {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.yourPlanCard {
+  min-width: 260px;
+}
+
+.yourPlanTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  line-height: 100%;
+  color: #4a4a4a;
+}
+
+.yourPlanBox {
+  background: #F6F6F6;
+  border-radius: 3px;
+  padding: 15px;
+  /* min-height: 126px; */
+  max-height: 425px;
+  overflow-y: auto;
+  width: 350px;
+  overflow-x: hidden;
+}
+.yourPlanBox hr{
+  margin: 20px 0;
+  color: #ECECEC;
+  opacity: 1;
+}
+.yourPlanBox::-webkit-scrollbar {
+  width: 8px;
+}
+
+.yourPlanBox::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.yourPlanBox::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.yourPlanBox::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Firefox support */
+.yourPlanBox {
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+.yourPlanBox:hover {
+  scrollbar-color: #a8a8a8 #f1f1f1;
+}
+
+
+.planName {
+  font-weight: 600;
+  color: #0066CC;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.creditsRemaining {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.planExpiry {
+  font-size: 13px;
+  color: #4a4a4a;
+}
+
+.planExpiry:last-child {
+  margin: 0;
+}
+
+.starterMain,
+.proMain {
+  flex: 1;
+  width: 100%;
+  max-width: 710px;
+}
+
+.buyCreditsBox {
+  background: #F6F6F6;
+  border-radius: 3px;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+.buyCreditsTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.buyCreditsRow {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.buyCreditsPrice {
+    font-family: DM Sans;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #4a4a4a;
+  margin-left: auto;
+  margin-bottom: 2px;
+  height: 21px;
+}
+
+.buyCreditsDisclaimer {
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 11px;
+    color: #888;
+    line-height: 100%;
+}
+
+.upgradeTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #4a4a4a;
+  line-height: 100%;
+}
+
+.starterPricing {
+  font-family: Plus Jakarta Sans;
+  border-radius: 3px;
+  background-color: #F6F6F6;
+  padding: 20px;
+  height: auto;
+  /* max-height: 315px; */
+  width: 100%;
+  max-width: 347px;
+  display: flex;
+  flex-direction: column;
+}
+
+.starterPricingTitle {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: normal;
+  letter-spacing: 0%;
+  margin-bottom: 6px;
+  color: #1a1a1a;
+}
+
+.starterPricingSubTitle {
+  font-family: DM Sans;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0; 
+  line-height: normal;
+  margin-bottom: 15px;
+  color: #4a4a4a;
+}
+
+.starterPricingPrice {
+    font-family: DM Sans;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 2px;
+    line-height: 100%;
+    color: #1a1a1a;
+    margin-right: 15px;
+    
+}
+
+.starterPricingPerksRow {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 5px;
+  font-family: DM Sans;
+  font-weight: 400;
+  font-size: 13px;
+  color: #4a4a4a;
+}
+
+.starterPricingPerksRow img {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.starterPricingPerksRow span {
+  margin-left: 10px;
+  display: block;
+  line-height: normal;
+  color: #4a4a4a;
+}
+
+.starterPricingDisclaimer{
+    font-family: DM Sans;
+    font-weight: 400;
+    font-size: 11px;
+    color: #888;
+    margin-top: 2px !important;
+    margin-bottom: 0;
+    height: 14px;
+}
+.memberType{
+  font-family: DM Sans;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+
+  background: linear-gradient(90deg, #00376D 0%, #0066CC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.subscriptionStatus{
+  margin: auto;
+  margin-left: 6px;
+  font-family: DM Sans;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.subscriptionStatus.activeSub{
+  background-color: #B3EFD3;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 1.5px 8px;
+  color:#2D5F47;
+}
+.subscriptionStatus.suspendedSub{
+  background-color: #FFE3E3;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 1.5px 8px;
+  color:#C00;
+}
+
+.cancelSubscriptionContainer{
+  display: flex;
+}
+
+.cancelSubscription{
+  font-weight: 500;
+  font-size: 14px;
+  color: #CC0000;
+  text-decoration: none;
+  /* margin: auto 0 0 0 ; */
+
+}
+
+.upgradeSubscription{
+  font-weight: 500;
+  font-size: 14px;
+  color: #0066CC;
+  text-decoration: none;
+  /* margin: auto 0 0 0 ; */
+
+}
+
+.noCredits{
+  color: #888;
+font-family: "DM Sans";
+font-size: 13px;
+font-weight: 400;
+line-height: 19px; /* 146.154% */
+}
+
+.subscriptionInfo{
+  color: #4A4A4A;
+font-family: "DM Sans";
+font-size: 13px;
+font-weight: 400;
+line-height: normal;
+}

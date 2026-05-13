@@ -1,0 +1,6 @@
+.templateDropdown {
+    width: 200px;
+}
+.templateDropdown .dropdownToggle{
+    height: 45px !important;
+}

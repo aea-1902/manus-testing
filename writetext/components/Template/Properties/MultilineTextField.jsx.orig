@@ -1,0 +1,137 @@
+import React, { useState, useEffect } from 'react';
+import styles from '../../../styles/styling/Templates/MultilineTextField.module.css';
+
+const MultilineTextField = ({ 
+  label = "",
+  value = "",
+  onChange = () => {},
+  block,
+  blockId,
+  blockIndex,
+  propertyIndex,
+  propertyId,
+  group,
+  preview = false,
+  setIsMultilineTextFieldInLimit = () => {}
+}) => {
+  const [isOverLimit, setIsOverLimit] = useState(false);
+  const [isDirty, setisDirty] = useState(false);
+
+  useEffect(() => {
+    const isOverLimit = value.length == getMaxLength();
+    setIsOverLimit(isOverLimit);
+  }, [value]);
+  const handleChange = (e) => {
+    setisDirty(true)
+    const isOverLimit = e.target.value.length == getMaxLength();
+    setIsOverLimit(isOverLimit);
+    setIsMultilineTextFieldInLimit(isOverLimit);
+    onChange(blockIndex, propertyIndex, propertyId, e.target.value);
+  };
+
+  const stripHtml = (html) => {
+    return html.replace(/<[^>]*>/g, '');
+  };
+
+  const handleBlur = (e) => {
+    let strippedValue = stripHtml(e.target.value);
+    strippedValue = strippedValue.trim();
+    if (strippedValue !== e.target.value) {
+      onChange(blockIndex, propertyIndex, propertyId, strippedValue);
+    }
+  };
+
+  const shouldShow = () => {
+    
+    if ((propertyId === 'heading_text_custom' || propertyId === 'context_text_custom') && group) {
+      const headingTextProperty = group.properties.find(p => p.id === 'heading_text' || p.id === 'content_text');
+      if (headingTextProperty) {
+        const textFieldProperty = group.properties.find(p => p.id === 'context_text_custom');
+        if (textFieldProperty) {
+          if (textFieldProperty.values.length == 0) {
+            textFieldProperty.values = textFieldProperty.defaultValues;
+          }
+        }
+        const value = headingTextProperty.values?.[0] || headingTextProperty.defaultValues?.[0];
+        return value === 'custom';
+      }
+    }
+    return true;
+  };
+
+  const getMaxLength = () => {
+    if (!group || !group.properties) return null;
+    const maxLengthProperty = group.properties.find(p => p.id === propertyId).maxLimit;
+    if (maxLengthProperty) {
+      return parseInt(maxLengthProperty);
+    }
+    else
+    {
+      return 1000;
+    }
+  };
+  
+  const isBlockEnabled = () => {
+    // If block is null/undefined, return true as default
+    if (!block) return true;
+
+
+    // Find the enabled group
+    const enabledGroupProperties = block.groups.find(g=>g?.id === 'enabled')?.properties;
+    if (!enabledGroupProperties) return true;
+
+    // Find the enabled property
+    const enabledProperty = enabledGroupProperties?.find(prop => prop.id === 'enabled');
+    if (!enabledProperty){
+      return true;
+    }
+
+    // Return true if the value is 'true', false otherwise
+    return enabledProperty.values[0] === 'true';
+  }
+  const isInvalid = (value) => {
+    if (!value.trim())
+    {return true;}
+    else
+    {return false}
+  }
+<<<<<<< HEAD
+  const hasPropertyError = () => {
+    debugger;
+    const propertyError = block.errorMessage.find(error => error.propertyId === propertyId);
+    if (propertyError) {
+=======
+  const blockHasErrorMessage = () => {
+    if (block.errorMessage.find(error => error.propertyId === propertyId)) {
+>>>>>>> 405-TemplatePage
+      return true;
+    }
+    return false;
+  }
+  return (
+    <div className={`w-100 ${!preview ? (shouldShow() ? 'field-show' : 'field-hidden') : ''}`}>
+      {/* {label && <p className={styles.label}>{label}</p>} */}
+      <textarea 
+<<<<<<< HEAD
+        className={`form-control ${styles.textField} ${isBlockEnabled() && isInvalid(value) ? hasPropertyError() ? styles.invalid : '' : ''}`}
+=======
+        className={`form-control ${styles.textField} ${(isDirty || blockHasErrorMessage()) && isBlockEnabled() && isInvalid(value) ? styles.invalid : ''}`}
+>>>>>>> 405-TemplatePage
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        maxLength={getMaxLength()}
+        style={{ height: '100px' }}
+      />
+      <div style={{
+        textAlign: 'right',
+        marginTop: '6px',
+        fontSize: '12px',
+      }}>
+        {value.length} / {getMaxLength()} characters
+      </div>
+    </div>
+  );
+};
+
+export default MultilineTextField; 

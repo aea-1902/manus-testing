@@ -1,0 +1,240 @@
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import Image from "next/image";
+import styles from "../../styles/styling/Keyword.module.css";
+import apiService from "../../services/ApiService";
+import LoadingContent from "../LoadingContent";
+import { sampleData } from "../../keywordCannibalization/sampleData";
+import AlertMessage from "./AlertMessage";
+import NoCannibalizationDetected from "./NoCannibalizationDetected";
+import FollowTooltip from "../FollowTooltip";
+import { isValidUrl, addHttps } from '../../utils/helper';
+import { PlatformsEnum } from "../../enum/Platforms";
+
+
+
+
+const Rows = (props) => {
+    const {rows} = props;
+    const [localRows, setLocalRows] = useState(rows);
+
+    const router = useRouter();
+    const { domain } = router.query;
+
+    const updateProcessed = async (domainId, id, keyword, processed) => {
+        //update the processed field on props.rows
+        const updatedRows = localRows.map((row) => {
+            if (row.domainId === domainId && row.id === id) {
+                row.keywords.find((k) => k.keyword === keyword).processed = processed;
+            }
+            return row;
+        });
+        setLocalRows(updatedRows);
+        //update the process field on the database
+        await apiService.post(`KeywordCannibalizationReport?domainId=${domainId}&id=${id}&keyword=${keyword}&value=${processed}`);
+    }
+    const handleAccordionToggle = (e, rowIndex, keywordIndex) => {
+        // Ensure the click event is not from a checkbox
+        if (e.target.tagName === "INPUT") return;
+
+        if (e.target.tagName === "P") 
+        {
+            e.target.parentElement.parentElement.classList.toggle('collapsed')
+        }
+        else
+        {
+            e.target.parentElement.classList.toggle('collapsed')
+        }
+        //toggle the collapsed class on e
+        const collapseElement = document.getElementById(`collapseKeyword-${rowIndex}-${keywordIndex}`);
+        if (collapseElement) {
+            collapseElement.classList.toggle("show");
+        }
+    };
+    const openDomainLink = (e, domain) => {
+        e.stopPropagation();
+        window.open(addHttps(domain), '_blank');
+    }   
+    return (
+        
+        <div className={`${styles.keywordCannibalizationReportTable}`}>
+            <div >
+                
+                {localRows.map((row, index) => (
+                    
+                    <div key={index} className={`accordion  ${styles.keywordCannibalizationReportTableRow}`} id={`collapsibleList${index}`}> 
+                    
+                        <button 
+                            className={`accordion-button ${styles.accordionButtonCustom} ${!domain ? (index === 0 ? '' : 'collapsed') : (row.domain === domain ? '' : 'collapsed')}`}
+                            type="button"
+                            onClick={(e) => {
+                                // Exit if domain link was clicked
+                                // debugger;
+                                // if (e.target.tagName === 'P' || e.target.parentElement.style.color === '#0d6efd') {
+                                //     return;
+                                // }
+                                const collapseElement = document.getElementById(`collapse${index}`);
+                                if (collapseElement) {
+                                    collapseElement.classList.toggle('show');
+                                }
+                                e.currentTarget.classList.toggle('collapsed');
+                            }}
+                        >
+                            <div className={`d-flex w-100`}>
+                                <div 
+                                    onClick={(e) => {
+                                        e.preventDefault(); 
+                                        e.stopPropagation();
+                                        e.nativeEvent.stopImmediatePropagation();
+                                        window.open(addHttps(row.domain), '_blank');
+                                        return false;
+                                    }}
+                                    style={{color: '#0d6efd', cursor: 'pointer'}}
+                                >
+                                    <p className={`mb-0`}>{row.domain}</p>
+                                </div>
+                                <div className={`d-flex ms-auto`} style={{marginRight: '40px'}}>
+                                    <p className={`mb-0 mr-20`}>{row.keywords.length > 0 ? 'Date found:' : 'Date checked:'} <b>{new Date(row.date).toLocaleDateString('en-US', {month: 'short', day: '2-digit', year: 'numeric'})}</b></p>
+                                    <p className={`mb-0`}>Country: <b>{row.countryCode}</b></p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        {(row.hasNoRankingKeywords || (!row.hasNoRankingKeywords && row.keywords.length === 0)) && (
+                            <div id={`collapse${index}`} className={`accordion-collapse collapse ${domain ? (row.domain === domain ? 'show' : '') : (index === 0 ? 'show' : '')}`}>
+                                {row.hasNoRankingKeywords && <AlertMessage index={index} />}
+                                {!row.hasNoRankingKeywords && row.keywords.length === 0 && <NoCannibalizationDetected index={index} />}
+                            </div>
+                        )}
+
+                        {!row.hasNoRankingKeywords && row.keywords.length > 0 && 
+                        
+                        <div id={`collapse${index}`} className={`accordion-collapse collapse ${domain ? (row.domain === domain ? 'show' : '') : (index === 0 ? 'show' : '')} keyword-cannibalization`} data-bs-parent={`#collapsibleList${index}`}>
+                            <div>
+                                <div>
+                                    <div className={`${styles.keywordCannibalizationReportTableRowMainHead}`}>
+                                        <p>Keyword</p>
+                                        <p>Search volume</p>
+                                        <p>Processed</p>
+                                        <p>
+                                        <FollowTooltip content="Check this box to mark the keyword cannibalization report as reviewed or processed. This is for your reference only and does not impact any data or reports.">
+                                        <Image src="/images/ic_question.svg" alt="Processed" width={18} height={18} />
+                                        </FollowTooltip></p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div className={`${styles.keywordCannibalizationCollapsibleParent}`}>
+                                    {row.keywords.map((keyword, keywordIndex) => (
+                                        <div key={`keyword-${index}-${keywordIndex}`} id={`collapsibleKeywordList-${index}-${keywordIndex}`} className={`${styles.collapsibleKeywordList}`}>
+                                            <button 
+                                                className={`accordion-button ${styles.accordionButtonCustom} ${styles.keywordCannibalizationReportTableRowMainHeaderRow} collapsed`} 
+                                                type="button" 
+                                                onClick={(e) => handleAccordionToggle(e, index, keywordIndex)}
+                                                 //data-bs-toggle="collapse" 
+                                                 //data-bs-target={`#collapseKeyword-${index}-${keywordIndex}`} 
+                                                style={{height: '40px'}}
+                                            >
+                                                <div className={`${styles.keywordCannibalizationReportTableRowMainHeaderRow}`}>
+                                                    <p>{keyword.keyword}</p>
+                                                    <p>{keyword.searchVolume}</p>
+                                                    <div 
+                                                        onClick={(e) => e.stopPropagation()} 
+                                                        style={{ position: 'absolute', right: '160px'}}
+                                                    >
+                                                        <input 
+                                                            style={{margin: 'auto'}}
+                                                            type="checkbox" 
+                                                            checked={keyword.processed} 
+                                                            onChange={(e) => {
+                                                                e.stopPropagation();
+                                                                updateProcessed(row.domainId, row.id, keyword.keyword, e.target.checked);
+                                                            }} 
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </button>
+                                            <div 
+                                                id={`collapseKeyword-${index}-${keywordIndex}`} 
+                                                className={`accordion-collapse collapse ${styles.collapsibleKeywordListContainer}` } 
+                                                data-bs-parent={`#collapsibleKeywordList-${index}-${keywordIndex}`}
+
+                                            >
+                                                <div className={`${styles.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowHead}`}>
+                                                    <p></p>
+                                                    <p>URL</p>
+                                                    <p>Position in SERP</p>
+                                                    <p></p>
+                                                </div>
+                                                {keyword.urlGroups.map((urlGroup, urlGroupIndex) =>
+                                                ( 
+                                                    <div key={`urlGroup-${urlGroupIndex}`} className={`d-flex ${styles.keywordCannibalizationReportUrlGroup}`}>
+                                                        <div className={`w-100`}>
+
+                                                        {urlGroup.urls.map((url, index) => (
+                                                            <div key={`url-${urlGroupIndex}`} className={`${styles.keywordCannibalizationReportTableRowMainHeaderRowTbodyRowBody}`}>
+                                                                <p className={`${index === 0 ? styles.keywordCannibalizationReportTableRowLinkIndex : ''}`}>{index === 0 ? urlGroupIndex + 1 : ''}</p>
+                                                                <p className={`${styles.keywordCannibalizationReportTableRowLink}`}><Link href={url.url} target="_blank">{url.url}</Link></p>
+                                                                <p>{url.position}</p>
+                                                                {/* {urlGroup.openLink && <p><button className={`btn btn-outline-primary`}>Open in WriteText.ai</button></p>} */}
+                                                            </div>
+                                                        ))}
+                                                        </div>
+                                                        <div className={`ms-auto`}>
+                                                            {urlGroup.openLink && <p><Link href={urlGroup.openLink} target="_blank" className={`btn btn-outline-primary ${styles.keywordOpenLinkButton}`}>Open in WriteText.ai</Link></p>}
+                                                        </div>
+                                                    </div>
+                                                ) 
+                                                   
+                                                )}
+                                                
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>}
+                    </div>
+                ))}
+            </div>
+        </div>
+    )
+}
+
+
+export default function CannibalizationReport(props) {
+    const {userData, loading = true, report = null} = props;
+    const [hasMagento, setHasMagento] = useState(false);
+    //sort sampleData by date descending       
+    // const sortedData = sampleData.sort((a, b) => new Date(b.date) - new Date(a.date));
+    //const [data, setData] = useState(report);
+    //const [loading, setLoading] = useState(true);
+    // useEffect(() => {
+    //     setData(report);
+    //     if (report.length > 0) {
+    //         setLoading(false);
+    //     }
+    // }, [report]);
+    useEffect(() => {
+        if (report && report.length > 0) {
+            const hasMagento = report.some(item => item.platform === PlatformsEnum.Magento);
+            setHasMagento(hasMagento);
+        }
+    }, [report]);
+    return (
+        <div className='keyword-settings'>
+            <div className="header">
+<<<<<<< HEAD
+                {/* <p className={`${styles.keywordSubheader}`} style={{maxWidth: '900px'}}>Easily track which products or pages are competing for the same keyword, analyze their search rankings, and uncover opportunities to optimize your content. Minimize self-competition and enhance your SEO strategy by effectively managing keyword performance.</p> */}
+                <p className={`${styles.keywordSubheader}`} style={{maxWidth: '900px'}}>See which pages on your site are ranking for the same keyword, along with their positions in search results. This report highlights potential keyword cannibalization—cases where multiple URLs compete for the same search term. You can click the <b>Open in WriteText.ai</b> button to view product pages directly or access links to category and non-product pages. Use these insights to decide which page to prioritize for a given keyword and adjust the target keywords or content strategy on others. While the report flags overlapping keywords, resolving them requires manual action to align your SEO efforts and reduce internal competition.</p>
+=======
+            <p className={`${styles.keywordSubheader}`} style={{maxWidth: '900px'}}>See which pages on your site are ranking for the same keyword, along with their positions in search results. This report highlights potential keyword cannibalization—cases where multiple URLs compete for the same search term. You can click the <b>Open in WriteText.ai</b> button to view product pages directly or access links to category and non-product pages. Use these insights to decide which page to prioritize for a given keyword and adjust the target keywords or content strategy on others. While the report flags overlapping keywords, resolving them requires manual action to align your SEO efforts and reduce internal competition.</p>
+>>>>>>> 410-KeywordCannibalizationPages_new
+            </div>
+            {hasMagento && <div className="header">
+                <p className={`${styles.keywordSubheader}`} style={{marginBottom: "42px"}}><b>Note: </b> If you have &quot;Add Secret Key to URLs&quot; enabled in your Magento webshop, the link(s) will not work.</p>
+            </div>}
+            {loading ? <div style={{marginTop: '100px', maxWidth: '900px'}}><LoadingContent /><p style={{textAlign: 'center', marginTop: '20px'}}>Generating report...</p></div> : report.length === 0 ? <div style={{marginTop: '100px', maxWidth: '900px'}}><p style={{textAlign: 'center', marginTop: '20px'}}>No records found</p></div> : <Rows  rows={report} />}
+        </div>
+    )
+}

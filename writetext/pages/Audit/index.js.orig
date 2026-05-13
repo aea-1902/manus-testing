@@ -1,0 +1,414 @@
+import React, { useState, useEffect,useRef, use  } from 'react'
+import axios from 'axios'
+import { setAuthHeader } from '../../utils/axiosHeader'
+import { useRouter } from 'next/router'
+import { addDays } from 'date-fns'
+
+import Header from '../../components/Header'
+import SideMenu from '../../components/SideMenu'
+import Body from '../../components/Body'
+import Content from '../../components/Content'
+import Footer from '../../components/Footer'
+import ModalDialog from '../../components/Modal'
+import DateRangeComp from '../../components/DateRangeComp'
+import CheckboxSelect from '../../components/CheckboxSelect'
+import { Table } from "react-bootstrap";
+import moment from 'moment';
+import t from '../../public/translation/locale'
+import { get, setMaxIdleHTTPParsers } from 'http'
+function formatDate(date) {
+ 
+  const d = new Date(date)
+  const userLocale = navigator.language.substring(0,2);
+  const options = {
+    year: 'numeric',
+    month: userLocale == 'en' ? 'short' : 'long' ,
+    day: 'numeric',
+  };
+  const formattedDate = d.toLocaleDateString(userLocale, options);
+  return formattedDate
+
+}
+
+function formatMoney(number){
+  return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
+function Row(props) {
+  const { row, hasMore, hasSelected } = props;
+
+  return (
+    <>
+      {
+        row != null ? 
+        row.map((mainRow, index) => (
+          <tr key={index}>
+                  <td className='font-12' scope="row">{formatDate(mainRow.date)}</td>
+                  {/* <td className='font-12' ><b>{mainRow.actionHeader}</b> {mainRow.action} {mainRow.actionHeader == "Generated" ? <a href={`/reports/historylogs?textId=` + mainRow.textId}  target='_blank' rel="noreferrer" ><i>{mainRow.anchorText}</i></a> : (mainRow.actionHeader == "Purchased" || mainRow.actionHeader == "Renewed subscription") ? <a href={`/Invoice`} target='_blank' rel="noreferrer" ><i>{mainRow.anchorText}</i></a> : null } </td> */}
+
+                  <td className='font-12' ><b>{(mainRow.actionHeader == "Expired" ? "Expired credits" : mainRow.actionHeader == "Free credits" ? "Free credits" : mainRow.actionHeader == "Subscription credits" ? "Subscription credits" : mainRow.actionHeader)}</b> {(mainRow.actionHeader == "Purchased" ? mainRow.action : "")} </td>
+                  <td className='font-12'><span>{mainRow.editor}</span></td>
+                  <td className='text-right font-12'>
+                    {/* {(mainRow.actionHeader == "Purchased") ? 
+                    <span>{mainRow.cost} {mainRow.currencyCode}</span> : 
+                    <span>{mainRow.creditUsage} credit</span>} */}
+
+                     {(mainRow.actionHeader == "Purchased") && <span>{mainRow.currencyCode} {formatMoney(mainRow.cost)}</span>}
+                     {(mainRow.actionHeader == "Generated" ||  mainRow.actionHeader == "Get keyword analysis") && <span>{mainRow.creditUsage} {mainRow.creditUsage > 1 ? "credits" : "credit"}</span>}
+                     {(mainRow.actionHeader == "Expired") && <span>{mainRow.creditUsage} {mainRow.creditUsage > 1 ? "credits" : "credit"}</span>}
+                     {/* {(mainRow.actionHeader == "New subscription") && <span>{mainRow.currencyCode} {formatMoney(mainRow.cost)}</span>}  */}
+                  </td>
+                  <td className='text-right font-12'><span>{mainRow.creditsLeft}</span></td>
+                </tr>
+        ))
+        :
+        <p className='text-center'>No records to show</p>
+      }
+      <tr>
+        {(hasMore && hasSelected) && (<div id="loader" className='text-center'>Loading...</div>)}
+        {(!hasMore && hasSelected) && <p className='text-center'>Logs ends here</p>}
+
+        {!hasSelected && <p className='text-center'>No records to show</p>}
+      </tr>
+    </>
+  );
+}
+const Audit = ({userData}) => {
+  
+  const https = require("https");
+  const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+  const AppSettings = require('../../settings/AppSetting').default
+  const router = useRouter()
+  const [auditLogs, setAuditLogs] = useState(null)
+  const [filteredLogs, setFilteredLogs] = useState(null)
+  const [unfilteredLogs, setUnfilteredLogs] = useState(null)
+  const [range, setRange] = useState([
+      {
+        startDate: addDays(new Date(), -30),
+        endDate: new Date(),
+        key: 'selection'
+      }
+    ])
+  const [translation, setTranslation] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  const [page, setPage] = useState(0)
+  const [hasMore, setHasMore] = useState(true)
+  const [continuationToken, setContinuationToken] = useState(null)
+
+  async function getAuditLogs(selectedItems, fromAction) {
+  fromAction = fromAction || false
+  const startDate = new Date(range[0].startDate)
+  const endDate = new Date(range[0].endDate)
+  //get utc from startDate and endDate to use as parameters
+  
+  const startDateString = startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate()
+  const endDateString = endDate.getFullYear() + "-" + (endDate.getMonth() + 1) + "-" + endDate.getDate()
+
+    axios.get(`${AppSettings.API_URL}/Reporting/AuditLog?startDate=${startDateString}&endDate=${endDateString}${(continuationToken != null && !fromAction) ? "&continuationToken=" + continuationToken : ""}${selectedItems != undefined ? "&selectedItems=" + selectedItems : ""}`,{
+      headers: {"Content-Type": "application/json"}}
+    ).then((res) => {
+      if (res.data.auditLogs.length > 0)
+      {
+        setContinuationToken(res.data.continuationToken)
+        if (res.data.continuationToken == null)
+        {
+          setHasMore(false)
+        }
+
+        setAuditLogs(res.data.auditLogs)
+        if (unfilteredLogs != null)
+        {
+          setUnfilteredLogs([...unfilteredLogs, ...res.data.auditLogs])
+        }
+        else
+        {
+          setUnfilteredLogs(res.data.auditLogs)
+        }
+
+        const filteredData = selectedItems != undefined ? res.data.auditLogs.filter(obj => selectedItems.includes(obj.actionHeader)) : res.data.auditLogs
+        // if (!fromAction)
+        // {
+        //   if (filteredLogs == null)
+        //     setFilteredLogs(filteredData)
+        //   else
+        //     setFilteredLogs([...filteredLogs, ...filteredData])
+
+            
+        // }
+        // else
+          setFilteredLogs(filteredData)
+
+      }
+      else
+        setHasMore(false)
+        setFilteredLogs(res.data.auditLogs)
+
+      })
+      .catch(error => {
+        setHasMore(false)
+      })
+  }
+    useEffect(() => {
+      //if (!isLoading)
+<<<<<<< HEAD
+      //{
+=======
+     // {
+>>>>>>> main
+        getAuditLogs()
+      
+     // }
+    },[range])// eslint-disable-line react-hooks/exhaustive-deps 
+    useEffect(() => {
+        async function Init(){
+          
+        const locale = navigator.language.substring(0,2);
+        setTranslation(t[locale] != undefined ? t[locale].Content["AuditTrails"] : t["en"].Content["AuditTrails"])
+        //
+        setSelectedItems(["All", "Expired", "Generated", "Purchased", "Subscription credits","Get keyword analysis","Free credits"]);
+            
+         }
+         async function getUser() {
+            const AuthenticationService = require('../../services/AuthenticationService').default
+            await AuthenticationService.getUser().then(u => {
+              if (u == null)
+              {
+                // AuthenticationService.login()
+              }
+              else{
+                
+              setAuthHeader(u.access_token)
+              getAuditLogs()
+              //setUser(u)
+              Init()  
+              setIsLoading(false)
+              }
+              
+            })
+          }
+      getUser()
+      
+    },[])// eslint-disable-line react-hooks/exhaustive-deps
+
+    function setActionFilter(value) {
+        console.log(value)
+    }
+    const [selectedItems, setSelectedItems] = useState([]);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+  
+    const dropdown = useRef(null);
+    useEffect(() => {
+      // only add the event listener when the dropdown is opened
+      if (!dropdownOpen) return;
+      function handleClick(event) {
+        if (!dropdown.current.contains(event.target)) {
+          setDropdownOpen(false);
+        }
+      }
+      window.addEventListener("click", handleClick);
+      // clean up
+      return () => window.removeEventListener("click", handleClick);
+    }, [dropdownOpen]);
+
+
+    const handleCheckboxChangeAll = async (value) => {
+      let prev = []
+      if (value === "All") {
+        if (selectedItems.includes(value)) {
+          setSelectedItems([]);
+          setFilteredLogs(null)
+        }
+        else {
+          prev = ["All", "Expired", "Generated", "Purchased", "Subscription credits","Get keyword analysis","Free credits"];
+          setSelectedItems(prev);
+          getAuditLogs(prev)
+          // setHasMore(true)
+        }
+      }
+      setHasMore(true)
+      // if (prev != undefined)
+      // {
+      //   const filteredData = unfilteredLogs.filter(obj => prev.includes(obj.actionHeader));
+        
+      //   setFilteredLogs(filteredData)
+      // }
+      // else{
+      //   const filteredData = unfilteredLogs;
+        
+      //   setFilteredLogs(filteredData)
+      // }
+      
+    };
+
+    const handleCheckboxChange = async (value) => {
+      let prev = selectedItems;
+      if (selectedItems.includes(value)) {
+        prev = prev.filter(item => item !== value);
+        prev = prev.filter(item => item !== "All");
+        setSelectedItems(prev);
+        //uncheck all
+
+      } else {
+        prev = [...prev, value];
+        
+        prev = prev.filter(item => item !== "All");
+        if (prev.length == 6)
+        {
+          prev = ["All", "Expired", "Generated", "Purchased", "Subscription credits","Get keyword analysis","Free credits"];
+        }
+        setSelectedItems(prev);
+
+      }
+      
+      setHasMore(true)
+      getAuditLogs(prev,true)
+
+    };
+    function handleScroll() {
+      const element = document.getElementById('audit-log')
+      const scrollableHeight = element.scrollHeight - element.clientHeight;
+      if (element.scrollTop === scrollableHeight) {
+          setPage(page + 1);
+          if (hasMore)
+            getAuditLogs(selectedItems)
+      }
+    }
+    if (translation && userData)
+    return (
+      <>
+      
+      <ModalDialog target="billing" type="billing" click={() => {router.push('/billing')}}/>
+        <Body>
+          <Content>
+            <div className='container'>
+            <div className="header d-flex">
+                <p>{translation["PageHeaderText"]}</p>
+            </div>
+            <div className="d-flex mb-36 audit">
+                <div className='w30 mr-14'>
+                    <p>Date range</p>
+                    <DateRangeComp dateRange={setRange}/>
+                </div>
+                <div className='w30'>
+                    <p>Actions</p>
+                    <div ref={dropdown} className="dropdown">
+                      
+                      <button
+                        className="btn btn-secondary dropdown-toggle custom-dropdown w-100"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded={dropdownOpen ? 'true' : 'false'}
+                        onClick={() => setDropdownOpen(b => !b)}
+                      >
+                        <span>
+                        {selectedItems.length > 0 ? `${selectedItems.length} selected` : 'Select actions'}</span>
+                      </button>
+                      <div className={`dropdown-menu${dropdownOpen ? ' show' : ''}`} aria-labelledby="dropdownMenuButton">
+                        <label className="dropdown-item select-all">
+                          <input 
+                            className='form-check-input'
+                            type="checkbox"
+                            value="Select all"
+                            checked={selectedItems.includes('All')}
+                            onChange={() => handleCheckboxChangeAll('All')}
+                          />
+                          <span>Select all</span>
+                        </label>
+                        <label className="dropdown-item">
+                          <input
+                            className='form-check-input'
+                            type="checkbox"
+                            value="Generated"
+                            checked={selectedItems.includes('Generated')}
+                            onChange={() => handleCheckboxChange('Generated')}
+                          />
+                          <span>Generated</span>
+                        </label>
+                        <label className="dropdown-item">
+                          <input
+                            className='form-check-input'
+                            type="checkbox"
+                            value="Get keyword analysis"
+                            checked={selectedItems.includes('Get keyword analysis')}
+                            onChange={() => handleCheckboxChange('Get keyword analysis')}
+                          />
+                          <span>Keyword analysis</span>
+                        </label>
+                        <label className="dropdown-item">
+                          <input
+                            className='form-check-input'
+                            type="checkbox"
+                            value="Purchased"
+                            checked={selectedItems.includes('Purchased')}
+                            onChange={() => handleCheckboxChange('Purchased')}
+                          />
+                          <span>Purchased extra credits</span>
+                        </label>
+                        <label className="dropdown-item">
+                          <input
+                            className='form-check-input'
+                            type="checkbox"
+                            value="Subscription credits"
+                            checked={selectedItems.includes('Subscription credits')}
+                            onChange={() => handleCheckboxChange('Subscription credits')}
+                          />
+                          <span>Subscription credits</span>
+                        </label>
+                        <label className="dropdown-item">
+                          <input 
+                            className='form-check-input'
+                            type="checkbox"
+                            value="Expired"
+                            checked={selectedItems.includes('Expired')}
+                            onChange={() => handleCheckboxChange('Expired')}
+                          />
+                          <span>Expired credits</span>
+                        </label>
+                        <label className="dropdown-item">
+                          <input 
+                            className='form-check-input'
+                            type="checkbox"
+                            value="Free credits"
+                            checked={selectedItems.includes('Free credits')}
+                            onChange={() => handleCheckboxChange('Free credits')}
+                          />
+                          <span>Free credits</span>
+                        </label>
+                      </div>
+                    </div>
+                </div>
+                {/* <div className='w-100 pull-bottom'>
+                  <input type='text' className="form-control h-45 ico-search" placeholder='Search' onChange={(item) => {setWildcardFilter(item.target.value)}}/>
+                </div> */}
+            </div>
+            {
+              auditLogs != null ? 
+              <div className='audit-log'>
+                <Table>
+                  <thead>
+                    <tr>
+                      <th className='w-120' scope="col">Date</th>
+                      <th scope="col">Action</th>
+                      <th scope="col">User</th>
+                      <th className='text-right' scope="col">Cost</th>
+                      <th className='text-right' scope="col">Credits left</th>
+                    </tr>
+                  </thead>
+                  <tbody id='audit-log' onScroll={handleScroll}>
+                    <Row row={filteredLogs} hasMore={hasMore} hasSelected={selectedItems.length > 0} />
+                  </tbody>
+                </Table>
+              </div>
+              : 
+              <p></p>
+            }
+            </div>
+          </Content>  
+        </Body>
+      </>
+    )
+}
+
+export default Audit

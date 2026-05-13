@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 6px;
+}
+
+.formatButton {
+  width: 100%;
+  min-width: 32px;
+  height: 32px;
+  border-radius: 3px;
+  border: 1px solid #dddddd;
+  background: #ffffff;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  letter-spacing: 0;
+  color: #1a1a1a;
+  transition: all 0.2s ease;
+}
+
+.formatButton:hover {
+  background: #f5f5f5;
+}
+
+.formatButton.active {
+  background: #ddeeff;
+  border-color: #0066cc;
+  color: #0066cc;
+}
+
+.formatButton.active.hasError{
+  background: rgba(204, 0, 0, 0.05);
+  border-color: rgba(204, 0, 0, 1);
+  color: rgba(204, 0, 0, 1);
+}
+.formatButton.active.hasWarning{
+  background: rgba(255, 255, 0, 0.05);
+  border-color: rgba(255, 153, 0, 1);
+  color: rgba(255, 153, 0, 1);
+}
+
+.formatButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+}
+
+/* Specific styles for heading tags */
+.h2, .h3, .h4, .h5, .h6 {
+  font-weight: 600;
+} 
+.paragraph p {
+  display: flex;
+}
+
+.paragraph p img {
+  margin: 3px 6px 0 0;
+}
+.bullet_list p,
+.number_list p,
+.paragraph p{
+  font-size: 12px !important;
+  min-width: 101px !important;
+  margin: 0 !important;
+  padding: 9px 16px !important;
+}
+.alignment{
+  /* max-width: 105px; */
+}
+
+.alignment p img{
+  margin-top: -1px;
+}
+.structureContainer{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

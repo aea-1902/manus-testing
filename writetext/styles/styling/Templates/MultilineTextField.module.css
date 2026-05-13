@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.label {
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #333;
+}
+
+.textField {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 13px;
+  font-family: "DM Sans", sans-serif;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.textField:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.hidden {
+  display: none;
+}
+
+.hasError {
+  color: #d32f2f !important;
+  border-color: #d32f2f !important;
+  background-color: #fbeaea !important;
+}
+
+.counterError {
+  color: #d32f2f !important;
+} 
+
+.invalid {
+  border-color: #dc3545 !important;
+}

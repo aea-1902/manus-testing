@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.label {
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #333;
+}
+
+.textField {
+  width: 100%;
+  height: 32px;
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+.textField:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.hidden {
+  display: none;
+}
+
+.characterCount {
+  font-size: 12px;
+  color: #666;
+  text-align: right;
+  margin-top: 4px;
+} 
+
+.counterError {
+  border-color: #d32f2f !important;
+  color: #d32f2f;
+}
+
+.invalid {
+  border-color: #dc3545 !important;
+}

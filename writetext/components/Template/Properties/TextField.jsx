@@ -1,0 +1,241 @@
+import React, { useState, useEffect, useRef } from 'react';
+import styles from '../../../styles/styling/Templates/TextField.module.css';
+
+const TextField = ({ 
+  label = "",
+  value = "",
+  onChange = () => {},
+  blockId,
+  blockIndex,
+  propertyIndex,
+  propertyId,
+  block,
+  group,
+  preview = false,
+  setIsTextFieldInLimit = () => {}
+}) => {
+  const [inputValue, setInputValue] = useState(value);
+  const [characters, setCharacters] = useState(null);
+  const [isOverLimit, setIsOverLimit] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
+  const [isDirty, setisDirty] = useState(false);
+  const timerRef = useRef(null);
+
+  // Get maxLength from group properties
+  const getMaxLength = () => {
+    if (!group || !group.properties) return null;
+    if (blockId === 'brand' && propertyId === 'name')
+    {
+      return 30;
+    }
+    const maxLengthProperty = group.properties.find(p => p.id === propertyId).maxLimit;
+    if (maxLengthProperty) {
+      return parseInt(maxLengthProperty);
+    }
+    else
+    {
+      return 1000;
+    }
+  };
+
+  // Update local input value when prop value changes
+  useEffect(() => {
+    setInputValue(value);
+    const maxLength = getMaxLength();
+    if (maxLength) {
+      setCharacters(value.length);
+    }
+    const isOverLimit = value.length == maxLength;
+    setIsOverLimit(isOverLimit);
+  }, [value]);
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
+  
+
+  const handleChange = (e) => {
+    setisDirty(true);
+    const maxLength = getMaxLength();
+    const newValue = e.target.value;
+    
+    const isOverLimit = newValue.length == maxLength;
+    setIsOverLimit(isOverLimit);
+    
+    // If maxLength is set, limit the input and update characters left
+    if (maxLength && newValue.length > maxLength) {
+      return;
+    }
+    
+    setInputValue(newValue);
+    if (maxLength) {
+      setCharacters(newValue.length);
+    }
+
+    // Check validation on change for required fields
+    if (propertyId === 'name') {
+      //setIsInvalid(!newValue.trim());
+    }
+    
+    // Clear any existing timer
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    
+    // Set a new timer
+    timerRef.current = setTimeout(() => {
+      onChange(blockIndex, propertyIndex, propertyId, newValue, group);
+    }, 300);
+  };
+  const stripHtml = (html) => {
+    return html.replace(/<[^>]*>/g, '');
+  };
+
+  const handleBlur = (e) => {
+    let strippedValue = stripHtml(e.target.value);
+    strippedValue = strippedValue.trim();
+    if (strippedValue !== e.target.value) {
+      onChange(blockIndex, propertyIndex, propertyId, strippedValue);
+    }
+    // Check validation on blur
+    if (propertyId === 'name' && !strippedValue.trim()) {
+      setIsInvalid(true);
+    } else {
+      if (!strippedValue.trim())
+        setIsInvalid(true)
+      else
+        setIsInvalid(false);
+    }
+  };
+
+  // Check if this is a heading_text_custom field and if heading_text is set to "custom"
+  const shouldRender = () => {
+    if (propertyId === 'heading_text_custom' && group) {
+      // Find the heading_text property in any of the group's properties
+      const headingTextProperty = group.properties.find(p => p.id === 'heading_text');
+      if (headingTextProperty) {
+        if (headingTextProperty.values.length === 0) {
+          return true;
+        }
+        const value = headingTextProperty.values[0];
+        return value === 'custom';
+      }
+    }
+    return true;
+  };
+  const hasDependentProperties = () => {
+    if (propertyId === 'heading_text_custom' && group) {
+      // Find the heading_text property in any of the group's properties
+      const headingTextProperty = group.properties.find(p => p.id === 'heading_text');
+      if (headingTextProperty) {
+       return true;
+      }
+    }
+    return false;
+  }
+
+  if (hasDependentProperties()) {
+    const element = document.getElementById(`property-${blockId}-${propertyId}-${propertyIndex}`);
+    if (element){
+      element.style.paddingTop = '4px';
+    }
+  }
+  const isFromImage = () => {
+    if (block.id.includes('image')) {
+      return true;
+    }
+    return false;
+  }
+  const shouldDisable = () => {
+    if (isFromImage()) {
+      if (block.groups.find(group => group.id === 'image').properties.find(prop => prop.id === 'include').values[0] === 'true') {
+        return false;
+      }else{
+        return true;
+      }
+    }
+    return true;
+  }
+  
+  const isBlockEnabled = () => {
+    // If block is null/undefined, return true as default
+    if (!block) return true;
+
+
+    // Find the enabled group
+    const enabledGroupProperties = block.groups.find(g=>g?.id === 'enabled')?.properties;
+    if (!enabledGroupProperties) return true;
+
+    // Find the enabled property
+    const enabledProperty = enabledGroupProperties?.find(prop => prop.id === 'enabled');
+    if (!enabledProperty){
+      return true;
+    }
+
+    // Return true if the value is 'true', false otherwise
+    return enabledProperty.values[0] === 'true';
+  }
+
+  const blockHasErrorMessage = () => {
+    if (block.errorMessage.find(error => error.propertyId === propertyId)) {
+      return true;
+    }
+    return false;
+  }
+  
+  if (isFromImage()) {
+    const isIncludeImageDescription = () => {
+      if (block.groups.find(group => group.id === 'image').properties.find(prop => prop.id === 'include').values[0] === 'true') {
+        return true;
+      }
+      return false;
+    }
+    return (
+      <div className={`w-100 ${shouldDisable() ? 'field-hidden' : (!shouldRender() ? 'field-hidden' : 'field-show')}`}>
+        <input 
+          type="text" 
+          className={`form-control ${styles.textField} ${(isBlockEnabled() && isIncludeImageDescription() && blockHasErrorMessage() && shouldRender()) ? !isInvalid ? block.errorMessage !== '' ? styles.invalid : '' : styles.invalid : ''}`}
+          value={inputValue}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          maxLength={getMaxLength()}
+        />
+        {
+          getMaxLength() && (
+            <div className={styles.characterCount}>
+              {characters} / {getMaxLength()} characters
+            </div>
+          )
+        }
+      </div>
+    );
+  }
+  return (
+    <div className={`w-100 ${!preview ? (!shouldRender() ? 'field-hidden' : 'field-show') : ''}`}>
+      <input 
+        id={`property-${blockId}-${propertyId}-${propertyIndex}`}
+        type="text" 
+        className={`form-control ${styles.textField} ${(isBlockEnabled() && shouldRender() && blockHasErrorMessage())  ? styles.invalid :  ''}`}
+        value={inputValue}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        maxLength={getMaxLength()}
+        required={propertyId === 'name' ? true : false}
+      />
+      {
+        getMaxLength() && (
+          <div className={styles.characterCount}>
+            {characters} / {getMaxLength()} characters
+          </div>
+        )
+      }
+    </div>
+  );
+};
+
+export default TextField; 

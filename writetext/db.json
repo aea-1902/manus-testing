@@ -1,0 +1,152 @@
+{
+    "Logs": [
+        {
+            "domain": "localhost:7223",
+            "totalGenerateCount": 14,
+            "totalSaveCount": 3,
+            "storesRaw": [
+                {
+                    "id": "08dadf05-1ed8-40a0-8516-80a45b40d7a0_default87",
+                    "urlId": "08dadf05-1ed8-40a0-8516-80a45b40d7a0",
+                    "reportingStores": [
+                        {
+                            "storeId": "default87",
+                            "generateCount": 14,
+                            "saveCount": 5,
+                            "editors": ",writetextai@1902.software"
+                        }
+                    ],
+                    "dateCreated": "2023-01-16T04:47:59.8747586Z",
+                    "dateUpdated": "2023-01-18T00:30:37.0461304Z",
+                    "type": "Main"
+                },
+                {
+                    "id": "08dadf05-1ed8-40a0-8516-80a45b40d7a0_default87_202301",
+                    "urlId": "08dadf05-1ed8-40a0-8516-80a45b40d7a0",
+                    "reportingStores": [
+                        {
+                            "storeId": "default87",
+                            "generateCount": 14,
+                            "saveCount": 5,
+                            "editors": ",writetextai@1902.software"
+                        }
+                    ],
+                    "dateCreated": "2023-01-16T04:48:00.9474173Z",
+                    "dateUpdated": "2023-01-18T00:31:25.5187053Z",
+                    "type": "Monthly"
+                },
+                {
+                    "id": "08dadf05-1ed8-40a0-8516-80a45b40d7a0_default87_20230116",
+                    "urlId": "08dadf05-1ed8-40a0-8516-80a45b40d7a0",
+                    "reportingStores": [
+                        {
+                            "storeId": "default87",
+                            "generateCount": 7,
+                            "saveCount": 2,
+                            "editors": ""
+                        }
+                    ],
+                    "dateCreated": "2023-01-16T04:48:01.1829487Z",
+                    "dateUpdated": "2023-01-16T07:22:48.4885562Z",
+                    "type": ""
+                },
+                {
+                    "id": "08dadf05-1ed8-40a0-8516-80a45b40d7a0_default87_20230117",
+                    "urlId": "08dadf05-1ed8-40a0-8516-80a45b40d7a0",
+                    "reportingStores": [
+                        {
+                            "storeId": "default87",
+                            "generateCount": 7,
+                            "saveCount": 0,
+                            "editors": ""
+                        }
+                    ],
+                    "dateCreated": "2023-01-17T09:09:29.6908263Z",
+                    "dateUpdated": "2023-01-17T09:09:29.6908263Z",
+                    "type": "Daily"
+                },
+                {
+                    "id": "08dadf05-1ed8-40a0-8516-80a45b40d7a0_default87_20230118",
+                    "urlId": "08dadf05-1ed8-40a0-8516-80a45b40d7a0",
+                    "reportingStores": [
+                        {
+                            "storeId": "default87",
+                            "generateCount": 0,
+                            "saveCount": 3,
+                            "editors": "writetextai@1902.software"
+                        }
+                    ],
+                    "dateCreated": "2023-01-18T00:26:35.4399792Z",
+                    "dateUpdated": "2023-01-18T00:31:25.3460568Z",
+                    "type": "Daily"
+                },
+                {
+                    "id": "08dadf05-1ed8-40a0-8516-80a45b40d7a0_default88",
+                    "urlId": "08dadf05-1ed8-40a0-8516-80a45b40d7a0",
+                    "reportingStores": [
+                        {
+                            "storeId": "default88",
+                            "generateCount": 7,
+                            "saveCount": 0,
+                            "editors": "writetextai@1902.software"
+                        }
+                    ],
+                    "dateCreated": "2023-01-18T01:52:56.1954897Z",
+                    "dateUpdated": "2023-01-18T01:52:56.195547Z",
+                    "type": "Main"
+                },
+                {
+                    "id": "08dadf05-1ed8-40a0-8516-80a45b40d7a0_default88_202301",
+                    "urlId": "08dadf05-1ed8-40a0-8516-80a45b40d7a0",
+                    "reportingStores": [
+                        {
+                            "storeId": "default88",
+                            "generateCount": 7,
+                            "saveCount": 0,
+                            "editors": "writetextai@1902.software"
+                        }
+                    ],
+                    "dateCreated": "2023-01-18T01:52:56.3472865Z",
+                    "dateUpdated": "2023-01-18T01:52:56.3472866Z",
+                    "type": "Monthly"
+                },
+                {
+                    "id": "08dadf05-1ed8-40a0-8516-80a45b40d7a0_default88_20230118",
+                    "urlId": "08dadf05-1ed8-40a0-8516-80a45b40d7a0",
+                    "reportingStores": [
+                        {
+                            "storeId": "default88",
+                            "generateCount": 7,
+                            "saveCount": 0,
+                            "editors": "writetextai@1902.software"
+                        }
+                    ],
+                    "dateCreated": "2023-01-18T01:52:56.494753Z",
+                    "dateUpdated": "2023-01-18T01:52:56.4947532Z",
+                    "type": "Daily"
+                }
+            ],
+            "reportingPerStores": [
+                {
+                    "id": null,
+                    "storeId": "default87",
+                    "generateCount": 7,
+                    "saveCount": 3,
+                    "editor": "writetextai@1902.software",
+                    "lastUpdated": "2023-01-18T00:30:37.0461304Z"
+                },
+                {
+                    "id": null,
+                    "storeId": "default88",
+                    "generateCount": 7,
+                    "saveCount": 0,
+                    "editor": "writetextai@1902.software",
+                    "lastUpdated": "2023-01-18T01:52:56.195547Z"
+                }
+            ],
+            "editors": "writetextai@1902.software"
+        }
+            ]
+
+    
+}
